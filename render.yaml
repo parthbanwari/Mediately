@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: mediately-app
+    env: node
+    plan: free
+    rootDir: server
+    buildCommand: |
+      cd ../client && npm install && npm run build
+      cp -a ../client/build/. ./build/
+      npm install
+    startCommand: node app.js
