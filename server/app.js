@@ -13,18 +13,21 @@ const app = express();
 const port = process.env.PORT || 3001;
 const server = createServer(app);
 
+// ✅ Only allow proper URL origins
+const allowedOrigin =
+  process.env.NODE_ENV === "production"
+    ? process.env.FRONTEND_URL
+    : "http://localhost:3000";
+
 const io = new Server(server, {
   cors: {
-    origin:
-      process.env.NODE_ENV === "production"
-        ? process.env.FRONTEND_URL || "*"
-        : "http://localhost:3000",
+    origin: allowedOrigin,
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
 
-app.use(cors());
+app.use(cors({ origin: allowedOrigin }));
 app.use(express.json());
 
 // API Routes
@@ -87,7 +90,8 @@ if (process.env.NODE_ENV === "production") {
   const buildPath = path.join(__dirname, "build");
   app.use(express.static(buildPath));
 
-  app.get("/*", (req, res) => {
+  // ✅ Explicit wildcard path
+  app.get("*", (req, res) => {
     res.sendFile(path.join(buildPath, "index.html"));
   });
 }
