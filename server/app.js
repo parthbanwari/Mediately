@@ -13,10 +13,9 @@ const app = express();
 const port = process.env.PORT || 3001;
 const server = createServer(app);
 
-// ✅ Only allow proper URL origins
 const allowedOrigin =
   process.env.NODE_ENV === "production"
-    ? process.env.FRONTEND_URL
+    ? "*" // or specific URL if you want
     : "http://localhost:3000";
 
 const io = new Server(server, {
@@ -30,7 +29,6 @@ const io = new Server(server, {
 app.use(cors({ origin: allowedOrigin }));
 app.use(express.json());
 
-// API Routes
 app.get("/messages/:caseId", async (req, res) => {
   try {
     const snapshot = await db
@@ -47,7 +45,6 @@ app.get("/messages/:caseId", async (req, res) => {
   }
 });
 
-// Socket.io logic
 io.on("connection", (socket) => {
   console.log("User Connected:", socket.id);
 
@@ -85,12 +82,10 @@ io.on("connection", (socket) => {
   });
 });
 
-// Serve React in production
 if (process.env.NODE_ENV === "production") {
   const buildPath = path.join(__dirname, "build");
   app.use(express.static(buildPath));
 
-  // ✅ Explicit wildcard path
   app.get("*", (req, res) => {
     res.sendFile(path.join(buildPath, "index.html"));
   });

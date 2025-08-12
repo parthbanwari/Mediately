@@ -5,7 +5,11 @@ services:
     plan: free
     rootDir: server
     buildCommand: |
-      cd ../client && npm install && npm run build
-      cp -a ../client/build/. ./build/
+      cd ../client
       npm install
+      npm run build
+      cd ../server
+      npm install
+      mkdir -p build
+      cp -a ../client/build/. ./build/
     startCommand: node app.js
