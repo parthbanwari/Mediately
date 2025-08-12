@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import { getAuth } from "firebase/auth";
 import { getFirestore, collection, getDocs, orderBy, query, doc, getDoc } from "firebase/firestore";
 
-const socket = io("http://localhost:3001"); // Backend URL
+const socket = io("https://mediately.onrender.com/"); 
 
 export default function MessagingChat() {
   const { caseId } = useParams();
