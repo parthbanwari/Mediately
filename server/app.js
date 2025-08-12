@@ -20,13 +20,13 @@ const allowedOrigin =
 
 const io = new Server(server, {
   cors: {
-    origin: allowedOrigin,
+    origin: "https://mediately.onrender.com/",
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
 
-app.use(cors({ origin: allowedOrigin }));
+app.use(cors({ origin: "https://mediately.onrender.com/" }));
 app.use(express.json());
 
 app.get("/messages/:caseId", async (req, res) => {
