@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: mediately-app
+    name: mediately
     env: node
     plan: free
     rootDir: server

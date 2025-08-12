@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "main": "app.js",
   "type": "module",
-  "scripts": {
-    "start": "node app.js"
+ "scripts": {
+    "start": "node server/app.js",
+    "server": "nodemon server/app.js",
+    "build": "npm install && npm install --prefix client && npm run build --prefix client"
   },
+  
   "keywords": [],
   "author": "",
   "license": "ISC",
