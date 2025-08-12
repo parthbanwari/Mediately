@@ -4,9 +4,9 @@
   "main": "app.js",
   "type": "module",
  "scripts": {
-    "start": "node server/app.js",
+    "start": "node app.js",
     "server": "nodemon server/app.js",
-    "build": "npm install && npm install --prefix client && npm run build --prefix client"
+    "build": "npm install && cd .. && cd ./client && npm install --prefix client && npm run build --prefix client && cd .. && cd ./server && mkdir -p build && cp -a ../client/build/. ./build/"
   },
   
   "keywords": [],
