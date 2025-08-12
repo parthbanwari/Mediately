@@ -15,7 +15,7 @@ const server = createServer(app);
 
 const allowedOrigin =
   process.env.NODE_ENV === "production"
-    ? "*" // or specific URL if you want
+    ? "*" // TEMP FIX: allow all in prod
     : "http://localhost:3000";
 
 const io = new Server(server, {
